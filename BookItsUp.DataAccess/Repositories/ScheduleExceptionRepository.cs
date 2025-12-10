@@ -76,7 +76,6 @@ namespace BookItsUp.DataAccess.Repositories
             await _context.SaveChangesAsync(ct);
         }
 
-        // ===== mapping
         private static ScheduleException ToDomain(ScheduleExceptionEntity e)
         {
             var segments = e.Type == Domain.Enums.ScheduleExceptionType.OpenExtra

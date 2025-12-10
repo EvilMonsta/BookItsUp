@@ -73,7 +73,6 @@ namespace BookItsUp.DataAccess.Repositories
             await _context.SaveChangesAsync(ct);
         }
 
-        // ===== mapping
         private static Provider ToDomain(ProviderEntity e)
         {
             var weekly = e.WeeklySchedule is null
@@ -113,7 +112,6 @@ namespace BookItsUp.DataAccess.Repositories
             TimeZone = p.TimeZone,
             Capacity = p.Capacity,
             IsActive = p.IsActive
-            // WeeklySchedule и ScheduleExceptions управляются своими репами/сервисами
         };
     }
 }

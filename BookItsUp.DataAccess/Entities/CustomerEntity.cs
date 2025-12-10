@@ -12,7 +12,6 @@ namespace BookItsUp.DataAccess.Entities
         public string? Email { get; set; }
         public string? Phone { get; set; }
 
-        // Навигации
         public virtual ICollection<BookingEntity> Bookings { get; set; } = new List<BookingEntity>();
     }
 }

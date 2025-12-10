@@ -19,10 +19,10 @@ namespace BookItsUp.Application.Services
         }
 
         public Task<Service?> GetAsync(Guid id, CancellationToken ct)
-            => _repo.GetAsync(id, ct); // :contentReference[oaicite:17]{index=17}
+            => _repo.GetAsync(id, ct); 
 
         public Task<IReadOnlyList<Service>> ListByOrganizationAsync(Guid organizationId, bool onlyActive, CancellationToken ct)
-            => _repo.ListByOrganizationAsync(organizationId, onlyActive, ct); // :contentReference[oaicite:18]{index=18}
+            => _repo.ListByOrganizationAsync(organizationId, onlyActive, ct); 
 
         public async Task<Service> CreateAsync(Service service, CancellationToken ct)
         {
@@ -34,9 +34,9 @@ namespace BookItsUp.Application.Services
         }
 
         public Task UpdateAsync(Service service, CancellationToken ct)
-            => _repo.UpdateAsync(service, ct); // :contentReference[oaicite:20]{index=20}
+            => _repo.UpdateAsync(service, ct);
 
         public Task DeleteAsync(Guid id, CancellationToken ct)
-            => _repo.DeleteAsync(id, ct); // :contentReference[oaicite:21]{index=21}
+            => _repo.DeleteAsync(id, ct); 
     }
 }

@@ -20,10 +20,9 @@ namespace BookItsUp.DataAccess.Configurations
                    .IsRequired();
 
             builder.Property(x => x.Type)
-                   .HasConversion<string>() // хранить как text
+                   .HasConversion<string>() 
                    .IsRequired();
 
-            // Уникальность: на дату у провайдера не более одного исключения
             builder.HasIndex(x => new { x.ProviderId, x.Date }).IsUnique();
 
             builder.HasMany(x => x.LocalTimeRanges)

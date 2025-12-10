@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace BookItsUp.DataAccess.Entities
 {
-    // Храним как отдельную сущность (1:1 к Provider) + коллекция дневных сегментов
     public class WeeklyScheduleEntity
     {
         public Guid Id { get; set; }

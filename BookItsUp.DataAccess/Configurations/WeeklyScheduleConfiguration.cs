@@ -15,7 +15,6 @@ namespace BookItsUp.DataAccess.Configurations
 
             builder.Property(x => x.ProviderId).IsRequired();
 
-            // Гарантия "один график на провайдера"
             builder.HasIndex(x => x.ProviderId).IsUnique();
 
             builder.HasMany(x => x.Segments)

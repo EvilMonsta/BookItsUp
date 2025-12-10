@@ -13,7 +13,6 @@ namespace BookItsUp.DataAccess.Entities
         public int Capacity { get; set; }
         public bool IsActive { get; set; }
 
-        // Навигации
         public virtual WeeklyScheduleEntity? WeeklySchedule { get; set; }
         public virtual ICollection<ScheduleExceptionEntity> ScheduleExceptions { get; set; } = new List<ScheduleExceptionEntity>();
         public virtual ICollection<BookingEntity> Bookings { get; set; } = new List<BookingEntity>();

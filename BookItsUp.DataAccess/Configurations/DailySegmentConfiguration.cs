@@ -16,13 +16,12 @@ namespace BookItsUp.DataAccess.Configurations
             builder.Property(x => x.WeeklyScheduleId).IsRequired();
 
             builder.Property(x => x.DayOfWeek)
-                   .HasConversion<int>() // хранить как int
+                   .HasConversion<int>() 
                    .IsRequired();
 
             builder.Property(x => x.StartLocalTime).IsRequired();
             builder.Property(x => x.EndLocalTime).IsRequired();
 
-            // На всякий — защита от дублей одинаковых интервалов в один день
             builder.HasIndex(x => new
             {
                 x.WeeklyScheduleId,

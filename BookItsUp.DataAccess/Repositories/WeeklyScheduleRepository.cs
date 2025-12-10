@@ -29,14 +29,12 @@ namespace BookItsUp.DataAccess.Repositories
             var e = ToEntity(providerId, schedule);
             _context.WeeklySchedules.Add(e);
             await _context.SaveChangesAsync(ct);
-            // перечитать с сегментами (на случай генерации Id)
             var saved = await _context.WeeklySchedules.AsNoTracking().Include(x => x.Segments).FirstAsync(x => x.Id == e.Id, ct);
             return ToDomain(saved);
         }
 
         public async Task UpdateAsync(Guid providerId, WeeklySchedule schedule, CancellationToken ct)
         {
-            // простая стратегия: удалить старые сегменты и вставить новые
             var existing = await _context.WeeklySchedules
                 .Include(ws => ws.Segments)
                 .FirstOrDefaultAsync(ws => ws.ProviderId == providerId, ct);
@@ -47,7 +45,6 @@ namespace BookItsUp.DataAccess.Repositories
                 return;
             }
 
-            // обновляем: удаляем сегменты и заменяем
             _context.DailySegments.RemoveRange(existing.Segments);
             existing.Segments.Clear();
 

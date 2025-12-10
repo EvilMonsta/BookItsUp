@@ -15,7 +15,6 @@ namespace BookItsUp.DataAccess.Entities
         public int BufferBeforeMinutes { get; set; }
         public int BufferAfterMinutes { get; set; }
 
-        // Навигации
         public virtual ICollection<BookingEntity> Bookings { get; set; } = new List<BookingEntity>();
     }
 }

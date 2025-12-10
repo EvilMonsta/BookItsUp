@@ -23,7 +23,7 @@ namespace BookItsUp.DataAccess.Configurations
                 x.ScheduleExceptionId,
                 x.StartLocalTime,
                 x.EndLocalTime
-            }).IsUnique(); // не плодить дубликаты интервалов в одной "исключительной" дате
+            }).IsUnique(); 
         }
     }
 }

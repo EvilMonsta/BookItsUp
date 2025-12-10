@@ -17,7 +17,6 @@ namespace BookItsUp.DataAccess.Entities
         public DateTimeOffset UpdatedAtUtc { get; set; }
         public DateTimeOffset? HoldExpiresAtUtc { get; set; }
 
-        // Навигации
         public virtual ProviderEntity? Provider { get; set; }
         public virtual ServiceEntity? Service { get; set; }
         public virtual CustomerEntity? Customer { get; set; }

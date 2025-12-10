@@ -25,7 +25,6 @@ namespace BookItsUp.DataAccess.Configurations
             builder.Property(x => x.BufferBeforeMinutes).IsRequired();
             builder.Property(x => x.BufferAfterMinutes).IsRequired();
 
-            // Уникальное имя услуги в рамках организации
             builder.HasIndex(x => new { x.OrganizationId, x.Name }).IsUnique();
 
             builder.HasOne<OrganizationEntity>()

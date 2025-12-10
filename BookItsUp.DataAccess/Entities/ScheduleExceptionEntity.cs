@@ -12,9 +12,8 @@ namespace BookItsUp.DataAccess.Entities
         public virtual ProviderEntity? Provider { get; set; }
 
         public DateOnly Date { get; set; }
-        public ScheduleExceptionType Type { get; set; } // Closed / OpenExtra
+        public ScheduleExceptionType Type { get; set; }
 
-        // Для OpenExtra — набор локальных интервалов в этот день
         public virtual ICollection<LocalTimeRangeEntity> LocalTimeRanges { get; set; } = new List<LocalTimeRangeEntity>();
     }
 }

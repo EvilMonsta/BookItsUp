@@ -14,15 +14,15 @@ namespace BookItsUp.Application.Services
         public ScheduleExceptionService(IScheduleExceptionRepository repo) => _repo = repo;
 
         public Task<ScheduleException?> GetAsync(Guid providerId, DateOnly date, CancellationToken ct)
-            => _repo.GetAsync(providerId, date, ct); // :contentReference[oaicite:26]{index=26}
+            => _repo.GetAsync(providerId, date, ct); 
 
         public Task<IReadOnlyList<ScheduleException>> ListByProviderAsync(Guid providerId, DateOnly from, DateOnly to, CancellationToken ct)
-            => _repo.ListByProviderAsync(providerId, from, to, ct); // :contentReference[oaicite:27]{index=27}
+            => _repo.ListByProviderAsync(providerId, from, to, ct); 
 
         public Task UpsertAsync(Guid providerId, ScheduleException exception, CancellationToken ct)
-            => _repo.UpsertAsync(providerId, exception, ct); // :contentReference[oaicite:28]{index=28}
+            => _repo.UpsertAsync(providerId, exception, ct); 
 
         public Task DeleteAsync(Guid providerId, DateOnly date, CancellationToken ct)
-            => _repo.DeleteAsync(providerId, date, ct); // :contentReference[oaicite:29]{index=29}
+            => _repo.DeleteAsync(providerId, date, ct); 
     }
 }
