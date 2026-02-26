@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookItsUp.Domain;
 using BookItsUp.Domain.Abstractions;
-using BookitUp.Infrastructure;
+using BookItsUp.DataAccess;
 using BookItsUp.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +25,15 @@ namespace BookItsUp.DataAccess.Repositories
         public async Task<IReadOnlyList<Service>> ListByOrganizationAsync(Guid organizationId, bool onlyActive, CancellationToken ct)
         {
             var q = _context.Services.AsNoTracking().Where(x => x.OrganizationId == organizationId);
+            if (onlyActive) q = q.Where(x => x.IsActive);
+
+            var list = await q.OrderBy(x => x.Name).ToListAsync(ct);
+            return list.Select(ToDomain).ToList();
+        }
+
+        public async Task<IReadOnlyList<Service>> ListAsync(bool onlyActive, CancellationToken ct)
+        {
+            var q = _context.Services.AsNoTracking().AsQueryable();
             if (onlyActive) q = q.Where(x => x.IsActive);
 
             var list = await q.OrderBy(x => x.Name).ToListAsync(ct);

@@ -15,7 +15,31 @@ namespace BookItsUp.Api.Controllers
     public class WeeklySchedulesController : ControllerBase
     {
         private readonly IWeeklyScheduleService _service;
-        public WeeklySchedulesController(IWeeklyScheduleService service) => _service = service;
+        private readonly IProviderService _providerService;
+
+        public WeeklySchedulesController(IWeeklyScheduleService service, IProviderService providerService)
+        {
+            _service = service;
+            _providerService = providerService;
+        }
+
+        [HttpGet("~/api/weekly-schedules/providers")]
+        public async Task<IActionResult> ListByProviders(CancellationToken ct)
+        {
+            var providers = await _providerService.ListAsync(false, ct);
+
+            var result = providers
+                .OrderBy(x => x.Name)
+                .Select(x => new
+                {
+                    providerId = x.Id,
+                    providerName = x.Name,
+                    organizationId = x.OrganizationId,
+                    weeklySchedule = x.WeeklySchedule.ToResponse()
+                });
+
+            return Ok(result);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Get(Guid providerId, CancellationToken ct)

@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookItsUp.Domain;
 using BookItsUp.Domain.Abstractions;
-using BookitUp.Infrastructure;
+using BookItsUp.DataAccess;
 using BookItsUp.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +31,19 @@ namespace BookItsUp.DataAccess.Repositories
                 .Include(p => p.WeeklySchedule)!.ThenInclude(ws => ws.Segments)
                 .Include(p => p.ScheduleExceptions)!.ThenInclude(se => se.LocalTimeRanges)
                 .Where(x => x.OrganizationId == organizationId);
+
+            if (onlyActive) q = q.Where(x => x.IsActive);
+
+            var list = await q.OrderBy(x => x.Name).ToListAsync(ct);
+            return list.Select(ToDomain).ToList();
+        }
+
+        public async Task<IReadOnlyList<Provider>> ListAsync(bool onlyActive, CancellationToken ct)
+        {
+            var q = _context.Providers.AsNoTracking()
+                .Include(p => p.WeeklySchedule)!.ThenInclude(ws => ws.Segments)
+                .Include(p => p.ScheduleExceptions)!.ThenInclude(se => se.LocalTimeRanges)
+                .AsQueryable();
 
             if (onlyActive) q = q.Where(x => x.IsActive);
 

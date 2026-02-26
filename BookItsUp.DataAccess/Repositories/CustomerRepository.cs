@@ -1,6 +1,6 @@
 ﻿using BookItsUp.Domain;
 using BookItsUp.Domain.Abstractions;
-using BookitUp.Infrastructure;
+using BookItsUp.DataAccess;
 using BookItsUp.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,6 +40,15 @@ namespace BookItsUp.DataAccess.Repositories
         {
             var list = await _context.Customers.AsNoTracking()
                 .Where(x => x.OrganizationId == organizationId)
+                .OrderBy(x => x.FullName)
+                .ToListAsync(ct);
+
+            return list.Select(ToDomain).ToList();
+        }
+
+        public async Task<IReadOnlyList<Customer>> ListAsync(CancellationToken ct)
+        {
+            var list = await _context.Customers.AsNoTracking()
                 .OrderBy(x => x.FullName)
                 .ToListAsync(ct);
 

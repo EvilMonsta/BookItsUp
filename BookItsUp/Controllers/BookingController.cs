@@ -26,16 +26,28 @@ namespace BookItsUp.Api.Controllers
         }
 
         [HttpGet("provider/{providerId:guid}")]
-        public async Task<IActionResult> ListByProvider(Guid providerId, [FromQuery] DateTimeOffset from, [FromQuery] DateTimeOffset to, CancellationToken ct)
+        public async Task<IActionResult> ListByProvider(Guid providerId, [FromQuery] DateTimeOffset? from, [FromQuery] DateTimeOffset? to, CancellationToken ct)
         {
-            var list = await _service.ListByProviderAsync(providerId, from, to, ct);
+            var rangeFrom = from ?? DateTimeOffset.MinValue;
+            var rangeTo = to ?? DateTimeOffset.MaxValue;
+
+            if (rangeTo <= rangeFrom)
+                return BadRequest(new { field = "timeRange", message = "The 'to' value must be greater than 'from'." });
+
+            var list = await _service.ListByProviderAsync(providerId, rangeFrom, rangeTo, ct);
             return Ok(list.Select(x => x.ToResponse()));
         }
 
         [HttpGet("customer/{customerId:guid}")]
-        public async Task<IActionResult> ListByCustomer(Guid customerId, [FromQuery] DateTimeOffset from, [FromQuery] DateTimeOffset to, CancellationToken ct)
+        public async Task<IActionResult> ListByCustomer(Guid customerId, [FromQuery] DateTimeOffset? from, [FromQuery] DateTimeOffset? to, CancellationToken ct)
         {
-            var list = await _service.ListByCustomerAsync(customerId, from, to, ct);
+            var rangeFrom = from ?? DateTimeOffset.MinValue;
+            var rangeTo = to ?? DateTimeOffset.MaxValue;
+
+            if (rangeTo <= rangeFrom)
+                return BadRequest(new { field = "timeRange", message = "The 'to' value must be greater than 'from'." });
+
+            var list = await _service.ListByCustomerAsync(customerId, rangeFrom, rangeTo, ct);
             return Ok(list.Select(x => x.ToResponse()));
         }
 

@@ -9,6 +9,7 @@ namespace BookItsUp.Domain.Abstractions
     {
         Task<Provider?> GetAsync(Guid id, CancellationToken ct);
         Task<IReadOnlyList<Provider>> ListByOrganizationAsync(Guid organizationId, bool onlyActive, CancellationToken ct);
+        Task<IReadOnlyList<Provider>> ListAsync(bool onlyActive, CancellationToken ct);
 
         Task<Provider> CreateAsync(Provider provider, CancellationToken ct);
         Task UpdateAsync(Provider provider, CancellationToken ct);
