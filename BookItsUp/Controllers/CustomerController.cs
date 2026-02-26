@@ -17,6 +17,13 @@ namespace BookItsUp.Controllers
         private readonly ICustomerService _service;
         public CustomersController(ICustomerService service) => _service = service;
 
+        [HttpGet]
+        public async Task<IActionResult> ListAll(CancellationToken ct)
+        {
+            var list = await _service.ListAsync(ct);
+            return Ok(list.Select(x => x.ToResponse()));
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken ct)
         {

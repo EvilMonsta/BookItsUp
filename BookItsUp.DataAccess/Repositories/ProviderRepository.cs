@@ -38,6 +38,19 @@ namespace BookItsUp.DataAccess.Repositories
             return list.Select(ToDomain).ToList();
         }
 
+        public async Task<IReadOnlyList<Provider>> ListAsync(bool onlyActive, CancellationToken ct)
+        {
+            var q = _context.Providers.AsNoTracking()
+                .Include(p => p.WeeklySchedule)!.ThenInclude(ws => ws.Segments)
+                .Include(p => p.ScheduleExceptions)!.ThenInclude(se => se.LocalTimeRanges)
+                .AsQueryable();
+
+            if (onlyActive) q = q.Where(x => x.IsActive);
+
+            var list = await q.OrderBy(x => x.Name).ToListAsync(ct);
+            return list.Select(ToDomain).ToList();
+        }
+
         public async Task<Provider> CreateAsync(Provider provider, CancellationToken ct)
         {
             var orgExists = await _context.Organizations

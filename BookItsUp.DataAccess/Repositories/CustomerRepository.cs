@@ -46,6 +46,15 @@ namespace BookItsUp.DataAccess.Repositories
             return list.Select(ToDomain).ToList();
         }
 
+        public async Task<IReadOnlyList<Customer>> ListAsync(CancellationToken ct)
+        {
+            var list = await _context.Customers.AsNoTracking()
+                .OrderBy(x => x.FullName)
+                .ToListAsync(ct);
+
+            return list.Select(ToDomain).ToList();
+        }
+
         public async Task<Customer> CreateAsync(Customer customer, CancellationToken ct)
         {
             var orgExists = await _context.Organizations

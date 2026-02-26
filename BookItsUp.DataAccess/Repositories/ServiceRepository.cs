@@ -31,6 +31,15 @@ namespace BookItsUp.DataAccess.Repositories
             return list.Select(ToDomain).ToList();
         }
 
+        public async Task<IReadOnlyList<Service>> ListAsync(bool onlyActive, CancellationToken ct)
+        {
+            var q = _context.Services.AsNoTracking().AsQueryable();
+            if (onlyActive) q = q.Where(x => x.IsActive);
+
+            var list = await q.OrderBy(x => x.Name).ToListAsync(ct);
+            return list.Select(ToDomain).ToList();
+        }
+
         public async Task<Service> CreateAsync(Service service, CancellationToken ct)
         {
             var orgExists = await _context.Organizations

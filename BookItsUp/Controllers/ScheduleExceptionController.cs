@@ -27,6 +27,9 @@ namespace BookItsUp.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> List(Guid providerId, [FromQuery] DateOnly from, [FromQuery] DateOnly to, CancellationToken ct)
         {
+            if (to < from)
+                return BadRequest(new { field = "dateRange", message = "The 'to' date must be greater than or equal to 'from'." });
+
             var list = await _service.ListByProviderAsync(providerId, from, to, ct);
             return Ok(list.Select(x => x.ToResponse()));
         }
