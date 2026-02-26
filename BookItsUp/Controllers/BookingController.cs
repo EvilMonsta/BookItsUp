@@ -28,6 +28,9 @@ namespace BookItsUp.Api.Controllers
         [HttpGet("provider/{providerId:guid}")]
         public async Task<IActionResult> ListByProvider(Guid providerId, [FromQuery] DateTimeOffset from, [FromQuery] DateTimeOffset to, CancellationToken ct)
         {
+            if (to <= from)
+                return BadRequest(new { field = "timeRange", message = "The 'to' value must be greater than 'from'." });
+
             var list = await _service.ListByProviderAsync(providerId, from, to, ct);
             return Ok(list.Select(x => x.ToResponse()));
         }
@@ -35,6 +38,9 @@ namespace BookItsUp.Api.Controllers
         [HttpGet("customer/{customerId:guid}")]
         public async Task<IActionResult> ListByCustomer(Guid customerId, [FromQuery] DateTimeOffset from, [FromQuery] DateTimeOffset to, CancellationToken ct)
         {
+            if (to <= from)
+                return BadRequest(new { field = "timeRange", message = "The 'to' value must be greater than 'from'." });
+
             var list = await _service.ListByCustomerAsync(customerId, from, to, ct);
             return Ok(list.Select(x => x.ToResponse()));
         }
