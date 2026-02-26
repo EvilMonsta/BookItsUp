@@ -17,6 +17,13 @@ namespace BookItsUp.Api.Controllers
         private readonly IProviderService _service;
         public ProvidersController(IProviderService service) => _service = service;
 
+        [HttpGet]
+        public async Task<IActionResult> ListAll([FromQuery] bool onlyActive, CancellationToken ct)
+        {
+            var list = await _service.ListAsync(onlyActive, ct);
+            return Ok(list.Select(x => x.ToResponse()));
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken ct)
         {

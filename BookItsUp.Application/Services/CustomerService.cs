@@ -28,6 +28,9 @@ namespace BookItsUp.Application.Services
         public Task<IReadOnlyList<Customer>> ListByOrganizationAsync(Guid organizationId, CancellationToken ct)
             => _repo.ListByOrganizationAsync(organizationId, ct);
 
+        public Task<IReadOnlyList<Customer>> ListAsync(CancellationToken ct)
+            => _repo.ListAsync(ct);
+
         public async Task<Customer> CreateAsync(Customer customer, CancellationToken ct)
         {
             var exists = await _orgs.ExistsAsync(customer.OrganizationId, ct);
