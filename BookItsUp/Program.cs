@@ -2,7 +2,7 @@
 using BookItsUp.DataAccess.Repositories;
 using BookItsUp.Application.Services;
 using BookItsUp.Domain.Abstractions;
-using BookitUp.Infrastructure;
+using BookItsUp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +34,8 @@ builder.Services.AddScoped<IScheduleExceptionService, ScheduleExceptionService>(
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ApiExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
