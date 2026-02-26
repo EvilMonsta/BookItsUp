@@ -2,7 +2,7 @@
 using BookItsUp.Domain;
 using BookItsUp.Domain.Abstractions;
 using BookItsUp.Domain.Models;
-using BookitUp.Infrastructure;
+using BookItsUp.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

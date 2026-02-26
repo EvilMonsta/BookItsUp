@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BookItsUp.Domain;
 using BookItsUp.Domain.Abstractions;
-using BookitUp.Infrastructure;
+using BookItsUp.DataAccess;
 using BookItsUp.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 

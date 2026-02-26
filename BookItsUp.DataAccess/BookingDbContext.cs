@@ -8,7 +8,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookitUp.Infrastructure
+namespace BookItsUp.DataAccess
 {
     public class BookingDbContext : DbContext
     {
